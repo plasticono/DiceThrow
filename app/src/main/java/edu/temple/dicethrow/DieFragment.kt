@@ -11,10 +11,12 @@ import kotlin.random.Random
 class DieFragment : Fragment() {
 
     val DIESIDE = "sidenumber"
+    val KEY = "text"
 
     lateinit var dieTextView: TextView
 
     var dieSides: Int = 6
+    var currentRoll: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,7 +45,21 @@ class DieFragment : Fragment() {
         }
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt(KEY, dieTextView.text.toString().toInt())
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        savedInstanceState?.getInt(KEY)?.run {
+            currentRoll = this
+            dieTextView.text = currentRoll.toString()
+        }
+    }
+
     fun throwDie() {
-        dieTextView.text = (Random.nextInt(dieSides) + 1).toString()
+        currentRoll = Random.nextInt(dieSides) + 1
+        dieTextView.text = currentRoll.toString()
     }
 }
