@@ -47,7 +47,7 @@ class DieFragment : Fragment() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putInt(KEY, dieTextView.text.toString().toInt())
+        outState.putInt(KEY, currentRoll)
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
